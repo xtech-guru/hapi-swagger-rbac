@@ -2,7 +2,7 @@
 
 const traverse = require('../lib/traverse');
 
-describe('traverse', function() {
+describe('traverse', () => {
   let callBack;
   let spec = {
               'pattern': {
@@ -33,16 +33,16 @@ describe('traverse', function() {
               }
             };
 
-  beforeEach(function() {
+  beforeEach(() => {
     callBack = jasmine.createSpy('callBack');
   });
 
-  it('does not call the callback for empty objects', function() {
+  it('does not call the callback for empty objects', () => {
     traverse(null, null, null, callBack);
     expect(callBack.calls.count()).toEqual(0);
   });
 
-  it('it should return an array of objects ', function() {
+  it('it should return an array of objects ', () => {
     traverse(spec, 'pattern', null, callBack);
     expect(callBack.calls.count()).toEqual(4);
     expect(callBack.calls.argsFor(0)).toEqual([{'fisrtKey': 'firstValue', 'secondKey': 'secondValue'}, []]);
