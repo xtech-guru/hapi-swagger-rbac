@@ -1,53 +1,28 @@
 'use strict';
 
 const traverse = require('../lib/traverse');
+const spec = require('./support/traverse-spec.json');
 
 describe('traverse', () => {
   let callBack;
-  let spec = {
-              'pattern': {
-                'fisrtKey': 'firstValue',
-                'secondKey': 'secondValue'
-              },
-              'element':{
-                'pattern':{
-                  'key': 'value'
-                }
-              },
-              'parentElement':{
-                'otherElement':{
-                  'noPattern':{
-                    'key': 'value'
-                  }
-                },
-                'childElement': {
-                  'pattern':{
-                    'key': 'value'
-                  }
-                },
-                'otherChildElement': {
-                  'pattern':{
-                    'otherKey': 'otherValue'
-                  }
-                }
-              }
-            };
 
   beforeEach(() => {
     callBack = jasmine.createSpy('callBack');
   });
 
   it('does not call the callback for empty objects', () => {
-    traverse(null, null, null, callBack);
+    traverse(null, null, callBack);
     expect(callBack.calls.count()).toEqual(0);
   });
 
-  it('it should return an array of objects ', () => {
-    traverse(spec, 'pattern', null, callBack);
+  it('it should call the callback for every occurrence of the pattern', () => {
+    traverse(spec, 'pattern', callBack);
     expect(callBack.calls.count()).toEqual(4);
-    expect(callBack.calls.argsFor(0)).toEqual([{'fisrtKey': 'firstValue', 'secondKey': 'secondValue'}, []]);
-    expect(callBack.calls.argsFor(1)).toEqual([{key: 'value'}, ['element']]);
-    expect(callBack.calls.argsFor(2)).toEqual([{'key': 'value'}, ['parentElement', 'childElement']]);
-    expect(callBack.calls.argsFor(3)).toEqual([{'otherKey': 'otherValue'}, ['parentElement', 'otherChildElement']]);
+    expect(callBack.calls.allArgs()).toEqual([
+      [{key1: 'value1', key2: 'value2'}, []],
+      [{key3: 'value3'}, ['element']],
+      [{key5: 'value5'}, ['parentElement', 'childElement']],
+      [{key6: 'value6'}, ['parentElement', 'otherChildElement']]
+    ]);
   });
 });

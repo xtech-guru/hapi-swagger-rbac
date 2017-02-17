@@ -1,0 +1,28 @@
+{
+  "pattern": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "element": {
+    "pattern": {
+      "key3": "value3"
+    }
+  },
+  "parentElement": {
+    "otherElement": {
+      "noPattern": {
+        "key4": "value4"
+      }
+    },
+    "childElement": {
+      "pattern": {
+        "key5": "value5"
+      }
+    },
+    "otherChildElement": {
+      "pattern": {
+        "key6": "value6"
+      }
+    }
+  }
+}

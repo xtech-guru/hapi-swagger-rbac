@@ -1,64 +1,39 @@
 'use strict';
 
-const util = require('util');
-const plugin = require('../lib/index');
 const Module = require('module');
+const plugin = require('..');
+const spec = require('./support/index-spec.json');
 
 describe('hapi-swagger-rbac', () => {
   let routingTable;
-  let spec = {
-    'paths':{
-      '/things':{
-        'get':{
-          'x-rbac':{
-            'rules': [
-              {
-                'target':[{ 'credentials:roles': 'admin'}],
-                'effect': 'permit'
-              }
-            ]
-          }
+
+  beforeEach(() => {
+    routingTable = [
+      {
+        public: {
+          method: 'get',
+          path: '/bae/path/path1'
         },
-        'post':{
-          'x-rbac':{
-            'rules': [{
-                'target':[{ 'credentials:roles': 'regularUser'}],
-                'effect': 'deny'
-              }
-            ]
-          }
+        settings: {
+          plugins: {}
+        }
+      },
+      {
+        public: {
+          method: 'post',
+          path: '/bae/path/path1'
+        },
+        settings: {
+          plugins: {}
         }
       }
-    }
-  };
-
-  beforeEach(() =>  {
-    routingTable = [
-        {
-          'public': {
-            'method': 'get',
-            'path': '/things'
-          },
-          'settings':{
-            'plugins': {}
-          }
-        },
-        {
-          'public': {
-            'method': 'post',
-            'path': '/things'
-          },
-          'settings':{
-            'plugins': {}
-          }
-        }
-      ];
+    ];
   });
 
-  it('should load hapi-rbac and add config to routing table ', (done) => {
+  it('should load hapi-rbac and add config to routing table', (done) => {
     let registerOptions;
 
-    let load = spyOn(Module, '_load').and.callFake((name) => {
+    spyOn(Module, '_load').and.callFake((name) => {
       return name;
     });
 
@@ -67,36 +42,31 @@ describe('hapi-swagger-rbac', () => {
         registerOptions = options;
         cb();
       },
-      'connections':[
-          {
-            table: () => {
-              return routingTable;
-            }
-          }
-        ]
-      };
+      connections: [{table: () => routingTable}]
+    };
 
     let options = {
       spec: spec,
       hapiRbac: 'hapi rbac options'
     };
 
-    plugin.register(server, options, () =>  {
+    plugin.register(server, options, () => {
       expect(registerOptions).toEqual({register: 'hapi-rbac', options: 'hapi rbac options'});
 
-      expect(server.connections[0].table()[0].settings.plugins.rbac).toEqual({
-        'rules': [
+      expect(routingTable[0].settings.plugins.rbac).toEqual({
+        rules: [
           {
-            'target':[{ 'credentials:roles': 'admin'}],
-            'effect': 'permit'
+            target: [{'credentials:roles': 'admin'}],
+            effect: 'permit'
           }
         ]
       });
 
-      expect(server.connections[0].table()[1].settings.plugins.rbac).toEqual({
-        'rules': [{
-            'target':[{ 'credentials:roles': 'regularUser'}],
-            'effect': 'deny'
+      expect(routingTable[1].settings.plugins.rbac).toEqual({
+        rules: [
+          {
+            target: [{'credentials:roles': 'user'}],
+            effect: 'deny'
           }
         ]
       });
@@ -106,28 +76,22 @@ describe('hapi-swagger-rbac', () => {
   });
 
   it('should handle hapi-rbac registration error and keep routing table untouched', done => {
-
     let server = {
       register: (options, callback) => {
         callback('unable to load hapi-rbac');
       },
-      'connections':[
-          {
-             table(){
-              return routingTable;
-            }
-          }
-        ]
-      };
+      connections: [{table: () => routingTable}]
+    };
+
     let options = {
       spec: spec
     };
 
-    plugin.register(server, options, (err) =>  {
-      expect(err).toEqual('unable to load hapi-rbac')
-      expect(server.connections[0].table()[0].settings.plugins.rbac).not.toBeDefined();
-      expect(server.connections[0].table()[1].settings.plugins.rbac).not.toBeDefined();
-      done()
+    plugin.register(server, options, (err) => {
+      expect(err).toEqual('unable to load hapi-rbac');
+      expect(routingTable[0].settings.plugins.rbac).not.toBeDefined();
+      expect(routingTable[1].settings.plugins.rbac).not.toBeDefined();
+      done();
     });
   });
 });
