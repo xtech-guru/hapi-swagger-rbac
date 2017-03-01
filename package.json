@@ -1,12 +1,15 @@
 {
   "name": "hapi-swagger-rbac",
   "version": "1.0.0",
-  "description": "A Hapi plugin to configure RBAC in a swagger specification.",
+  "description": "A Hapi plugin to configure RBAC in a swagger specification through 'hapi-rbac'.",
   "author": "xTECH <tech@xtech.guru>",
   "license": "MIT",
   "main": "lib/index.js",
   "dependencies": {
     "hapi-rbac": "^2.2.2"
+  },
+  "devDependencies": {
+    "jasmine": "^2.5.3"
   },
   "scripts": {
     "test": "jasmine"
@@ -19,8 +22,5 @@
   "repository": "git@github.com:xtech-guru/hapi-swagger-rbac.git",
   "engines": {
     "node": ">=0.12"
-  },
-  "devDependencies": {
-    "jasmine": "^2.5.3"
   }
 }
