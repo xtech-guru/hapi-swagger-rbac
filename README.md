@@ -1,6 +1,6 @@
 # Hapi Swagger RBAC
 
-A Hapi plugin to configure RBAC in a swagger specification through [hapi-rbac](https://github.com/franciscogouveia/hapi-rbac). 
+A Hapi plugin to configure RBAC in a swagger specification through [hapi-rbac](https://github.com/franciscogouveia/hapi-rbac).
 
 ## Usage
 
