@@ -1,0 +1,35 @@
+{
+  "basePath": "/bae/path",
+  "paths": {
+    "/path1": {
+      "get": {
+        "x-rbac": {
+          "rules": [
+            {
+              "target": [
+                {
+                  "credentials:roles": "admin"
+                }
+              ],
+              "effect": "permit"
+            }
+          ]
+        }
+      },
+      "post": {
+        "x-rbac": {
+          "rules": [
+            {
+              "target": [
+                {
+                  "credentials:roles": "user"
+                }
+              ],
+              "effect": "deny"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
