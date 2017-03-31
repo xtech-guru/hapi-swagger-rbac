@@ -2,6 +2,12 @@
 
 A Hapi plugin to configure RBAC in a swagger specification through [hapi-rbac](https://github.com/franciscogouveia/hapi-rbac).
 
+## Installation
+
+```bash
+npm install --save @xtech-pub/hapi-swagger-rbac
+```
+
 ## Usage
 
 ### 1. Swagger spec
@@ -41,7 +47,7 @@ Example:
 
 ```js
 Server.register({
-  register: require('hapi-swagger-rbac'),
+  register: require('@xtech-pub/hapi-swagger-rbac'),
   options: {
     spec: spec,
     hapiRbac: {
