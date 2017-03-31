@@ -1,5 +1,5 @@
 {
-  "name": "hapi-swagger-rbac",
+  "name": "@xtech-pub/hapi-swagger-rbac",
   "version": "1.0.0",
   "description": "A Hapi plugin to configure RBAC in a swagger specification through 'hapi-rbac'.",
   "author": "xTECH <tech@xtech.guru>",
