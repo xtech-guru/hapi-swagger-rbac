@@ -1,3 +1,5 @@
+# This package has been deprecated, please use @xtech-pub/hapi-swagger-rbac instead.
+
 # Hapi Swagger RBAC
 
 A Hapi plugin to configure RBAC in a swagger specification through [hapi-rbac](https://github.com/franciscogouveia/hapi-rbac).

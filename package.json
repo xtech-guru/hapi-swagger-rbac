@@ -1,7 +1,7 @@
 {
   "name": "hapi-swagger-rbac",
-  "version": "1.0.0",
-  "description": "A Hapi plugin to configure RBAC in a swagger specification through 'hapi-rbac'.",
+  "version": "1.0.1",
+  "description": "This package has been deprecated, please use @xtech-pub/hapi-swagger-rbac instead.",
   "author": "xTECH <tech@xtech.guru>",
   "license": "MIT",
   "main": "lib/index.js",
