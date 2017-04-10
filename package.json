@@ -1,6 +1,6 @@
 {
   "name": "hapi-swagger-rbac",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "This package has been deprecated, please use @xtech-pub/hapi-swagger-rbac instead.",
   "author": "xTECH <tech@xtech.guru>",
   "license": "MIT",

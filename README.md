@@ -1,6 +1,6 @@
-# This package has been deprecated, please use @xtech-pub/hapi-swagger-rbac instead.
-
 # Hapi Swagger RBAC
+
+## This package has been deprecated, please use [@xtech-pub/hapi-swagger-rbac](https://www.npmjs.com/package/@xtech-pub/hapi-swagger-rbac) instead.
 
 A Hapi plugin to configure RBAC in a swagger specification through [hapi-rbac](https://github.com/franciscogouveia/hapi-rbac).
 
